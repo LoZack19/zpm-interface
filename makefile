@@ -1,24 +1,19 @@
-CC = /usr/bin/gcc
+CC = gcc
+AR = ar
+UNIRUN = Unirun
+TARGET = librgmint.a
 
-zpm: unirun.o interface.o main.o
-	$(CC) unirun.o interface.o main.o -o zpm
+$(TARGET): interface.o unirun.o
+	$(AR) -r $(TARGET) unirun.o interface.o
 
-unirun.o: Unirun/unirun.c
-	$(CC) -c Unirun/unirun.c -o unirun.o
-
-interface.o: interface.c
+interface.o: interface.h interface.c
 	$(CC) -c interface.c -o interface.o
 
-main.o: main.c
-	$(CC) -c main.c -o main.o
-
+unirun.o: $(UNIRUN)/unirun.h $(UNIRUN)/unirun.c
+	gcc -c $(UNIRUN)/unirun.c -o unirun.o
 
 clean:
 	rm *.o
 
-install:
-	sudo install zpm /usr/bin
-	rm zpm
-
-uninstall:
-	rm /usr/bin/zpm
+clean_all: clean
+	rm *.a

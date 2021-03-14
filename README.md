@@ -5,7 +5,9 @@ The `interface` library provides functions to update the registry of installed p
 - lspkg
 - rmpkg
 - wrpkg
-The `regman` program is called thanks to the `unirun` library, which provides functions to execute a program by saving its output in a buffer.
+The `regman` program is called thanks to the `unirun` library, which provides functions to execute a program by saving its output in a buffer.  
+
+To be able to use this library you need to have installed [regman](https://github.com/LoZack19/regman).
 
 _(*) indicates that the function returns a pointer_
 
@@ -66,6 +68,33 @@ int wrpkg(char* name, int ver, int sub);
 ```
 
 The `wrpkg` function adds a package to the registry, taking its name, version and subversion as input. If the operation fails, an error code is returned.
+
+# INSTALLATION
+In order to use this library in one of your projects you need to perform the following instructions to compile and link the library correctly.
+
+## Prepare the enviroment
+1. Download this repository in your project
+2. Download the Unirun repository
+```bash
+$ git clone https://github.com/LoZack19/zpm-interface   # this will generate the build folder
+$ cd zpm-interface
+$ git clone https://github.com/LoZack19/Unirun
+```
+
+## Compile
+```bash
+$ make          # compile
+$ make clean    # (optional) remove object files
+```
+This will generate the library `librgmint.a`. Now copy this library and the `interface.h` header wherever you want.  
+
+**These last two steps can be avoided by downloading the precompiled `.a` file and the header and placing them in the appropriate directories.**
+
+## Usage
+To use this library you must link it specifying the path and using the `-lrgmint` flag in gcc. You'll need to include the `interface.h` header wherever you need to use the library.
+```bash
+gcc -L./ main.c -o main -lrgmint    # if librgmint.a is in the same directory of main.c
+```
 
 # AUTHOR
 Written by **Giovanni Zaccaria**.
