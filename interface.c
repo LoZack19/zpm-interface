@@ -17,8 +17,8 @@ char* itos(const int num)
 
     buffer = malloc(str_len);
 
-    if (buffer == NULL)
-        return -1;
+    if (!buffer)
+        return NULL;
 
     snprintf(buffer, str_len, "%d", num);
     
@@ -33,7 +33,7 @@ int fpkg(char* name)
 
     buffer = run(INTERFACE, args, &status);
     if(!buffer)
-        return -1;
+        return _INT_ER;
     
     free(buffer);
     return status;
@@ -49,7 +49,7 @@ int* fver(char* name)
 
     buffer = run(INTERFACE, args, &status);
     if(!buffer || status)
-        return -1;
+        return NULL;
     
     tmp = strtok(buffer, " ");
     version[0] = atoi(tmp);
@@ -68,13 +68,15 @@ int lspkg()
     int status;
 
     buffer = run(INTERFACE, args, &status);
-    if(!buffer || status)
-        return -1;
+    if(!buffer)
+        return _INT_ER;
+    if(status)
+        return status;
     
     fputs(buffer, stdout);
     
     free(buffer);
-    return 0;
+    return status;
 }
 
 int rmpkg(char* name)
@@ -83,7 +85,7 @@ int rmpkg(char* name)
     int status;
 
     if(!run(INTERFACE, args, &status))
-        return -1;
+        return _INT_ER;
     
     return status;
 }
@@ -94,7 +96,7 @@ int wrpkg(char* name, int ver, int sub)
     int status;
 
     if(!run(INTERFACE, args, &status))
-        return -1;
+        return _INT_ER;
     
     return status;
 }

@@ -12,6 +12,7 @@ interface.o: interface.c
 main.o: main.c
 	$(CC) -c main.c -o main.o
 
+
 clean:
 	rm *.o
 
