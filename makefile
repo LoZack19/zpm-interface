@@ -12,6 +12,10 @@ interface.o: interface.h interface.c
 unirun.o: $(UNIRUN)/unirun.h $(UNIRUN)/unirun.c
 	gcc -c $(UNIRUN)/unirun.c -o unirun.o
 
+
+configure:
+	git clone https://github.com/LoZack19/Unirun
+
 clean:
 	rm *.o
 
