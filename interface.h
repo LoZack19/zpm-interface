@@ -10,10 +10,18 @@
 // Internal error
 #define _INT_ER (signed int)(-1)
 
+typedef struct
+{
+    int ver;
+    int sub;
+} pkg_ver;
+
+pkg_ver* new_pkg_ver();
+
 int fpkg(char* name);
-int* fver(char* name);
+int fver(char* name, pkg_ver* version);
 int lspkg();
 int rmpkg(char* name);
-int wrpkg(char* name, int ver, int sub);
+int wrpkg(char* name, pkg_ver* version);
 
 #endif

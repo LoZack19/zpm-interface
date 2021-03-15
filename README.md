@@ -12,13 +12,6 @@ To be able to use this library you need to have installed [regman](https://githu
 _(*) indicates that the function returns a pointer_
 
 # RETURN VALUE
-The error system is different depending on whether the function returns a pointer or not.
-
-## Poiter returning functions
-- `0` - something bad occured  
-- other: function executed correctly
-
-## Integer returning functions
 Regman errors:
 - `ER_ARG` - Bad number of arguments
 - `ER_CMD` - Bad command
@@ -36,17 +29,17 @@ int fpkg(char* name);
 ```
 
 The `fpkg` function takes the name of a packet as input and returns an error code to indicate whether the packet was found, not found, or a different kind of error occurred.  
-- `0`      - found
-- `ER_FUN` - not found
+- `0`      - package found
+- `ER_FUN` - package not found
 
 ## FVER
 ```c
-int* fver(char* name);
+int fver(char* name, pkg_ver* verison);
 ```
 
-The `fver` function takes the name of a packet as input and returns an array of two integers. At position `[0]` is the package version, at position `[1]` is the subversion.  
-- `0`
-- other: version array
+The `fver` function takes the name of a packet as input and returns an error status. By doing so it initializes the pkg_ver object with the version of the specified package.  
+- `0`      - package found
+- `ER_FUN` - package not found
 
 ## LSPKG
 ```c
@@ -64,7 +57,7 @@ The `rmpkg` function takes the name of a package as input and if it exists it de
 
 ## WRPKG
 ```c
-int wrpkg(char* name, int ver, int sub);
+int wrpkg(char* name, pkg_ver* version);
 ```
 
 The `wrpkg` function adds a package to the registry, taking its name, version and subversion as input. If the operation fails, an error code is returned.

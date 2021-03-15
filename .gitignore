@@ -1,5 +1,8 @@
 *.o
 *.a
-zpm
 ~*
 Unirun/
+main.c
+main
+test.c
+test

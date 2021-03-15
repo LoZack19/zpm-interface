@@ -25,6 +25,8 @@ char* itos(const int num)
     return buffer;
 }
 
+pkg_ver* new_pkg_ver() { return (pkg_ver*) malloc(sizeof(pkg_ver)); }
+
 int fpkg(char* name)
 {
     char* args[4] = {"regman", "fpkg", name, 0};
@@ -39,26 +41,30 @@ int fpkg(char* name)
     return status;
 }
 
-int* fver(char* name)
+int fver(char* name, pkg_ver* version)
 {
     char* args[4] = {"regman", "fver", name, 0};
     char* buffer = NULL;
     char* tmp;
     int status;
-    int* version = (int*) malloc(2*sizeof(int));
+    
+    if(!version)
+        return _INT_ER;
 
     buffer = run(INTERFACE, args, &status);
-    if(!buffer || status)
-        return NULL;
+    if(!buffer)
+        return _INT_ER;
+    if(status)
+        return status;
     
     tmp = strtok(buffer, " ");
-    version[0] = atoi(tmp);
+    version->ver = atoi(tmp);
 
     tmp = strtok(NULL, " ");
-    version[1] = atoi(tmp);
+    version->sub = atoi(tmp);
 
     free(buffer);
-    return version;
+    return status;
 }
 
 int lspkg()
@@ -90,9 +96,9 @@ int rmpkg(char* name)
     return status;
 }
 
-int wrpkg(char* name, int ver, int sub)
+int wrpkg(char* name, pkg_ver* version)
 {
-    char* args[6] = {"regman", "write", name, itos(ver), itos(sub), 0};
+    char* args[6] = {"regman", "write", name, itos(version->ver), itos(version->sub), 0};
     int status;
 
     if(!run(INTERFACE, args, &status))
