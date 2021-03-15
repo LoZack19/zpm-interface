@@ -2,7 +2,5 @@
 *.a
 ~*
 Unirun/
-main.c
-main
-test.c
-test
+main*
+test*
