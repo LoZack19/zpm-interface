@@ -74,9 +74,7 @@ $ cd zpm-interface
 
 Then compile it:
 ```bash
-$ make configure    # configure the enviroment
 $ make              # compile
-$ make clean        # (optional) remove object files
 ```
 This will generate the library `librgmint.a`. Now copy this library and the `interface.h` header wherever you want. Afhter this you can delete the `zpm-interface` folder.  
 

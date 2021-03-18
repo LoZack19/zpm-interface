@@ -1,23 +1,20 @@
-CC = gcc
-AR = ar
-UNIRUN = Unirun
-TARGET = librgmint.a
+CC=gcc
+CFLAGS=
+AR=ar
+OBJ=interface.o Unirun/unirun.o
+TARGET=librgmint.a
 
-$(TARGET): interface.o unirun.o
-	$(AR) -r $(TARGET) unirun.o interface.o
+all: configure $(TARGET)
 
-interface.o: interface.h interface.c
-	$(CC) -c interface.c -o interface.o
+%o: %.c %.h
+	$(CC) $(CFLAGS) -c $<
 
-unirun.o: $(UNIRUN)/unirun.h $(UNIRUN)/unirun.c
-	gcc -c $(UNIRUN)/unirun.c -o unirun.o
+$(TARGET): $(OBJ)
+	$(AR) -r $@ $^
 
 
 configure:
 	git clone https://github.com/LoZack19/Unirun
 
 clean:
-	rm *.o
-
-clean_all: clean
-	rm *.a
+	rm -rf *.o *.a Unirun/
