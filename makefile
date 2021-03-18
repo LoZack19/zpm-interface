@@ -1,12 +1,13 @@
 CC=gcc
 CFLAGS=
 AR=ar
+
 OBJ=interface.o Unirun/unirun.o
 TARGET=librgmint.a
 
 all: configure $(TARGET)
 
-%o: %.c %.h
+%.o: %.c %.h
 	$(CC) $(CFLAGS) -c $<
 
 $(TARGET): $(OBJ)
